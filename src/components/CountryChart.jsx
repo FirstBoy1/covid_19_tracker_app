@@ -8,7 +8,6 @@ export default function CountryChart({ details, country }) {
   const theme = useTheme();
 
   useEffect(() => {
-    console.log(recovered);
     setChartData({
       labels: ['Infected', 'Recovered', 'Deaths'],
       datasets: [

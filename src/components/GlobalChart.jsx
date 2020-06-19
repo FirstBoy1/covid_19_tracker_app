@@ -8,26 +8,6 @@ export default function GlobalChart() {
   const [chartData, setChartData] = useState({});
   const theme = useTheme();
 
-  function chart(labels, infectedData, deathsData) {
-    setChartData({
-      labels,
-      datasets: [
-        {
-          label: 'Infected',
-          data: infectedData,
-          backgroundColor: ['hsla(250, 10%, 70%, .5'],
-          borderColor: theme.blue,
-        },
-        {
-          label: 'Deaths',
-          data: deathsData,
-          backgroundColor: ['#FD7D7D'],
-          borderColor: theme.red,
-        },
-      ],
-    });
-  }
-
   useEffect(() => {
     (async () => {
       const res = await fetch(`${api_endpoint}/daily`);
@@ -42,9 +22,25 @@ export default function GlobalChart() {
         infectedData[idx] = confirmed.total;
         recoveredData[idx] = recovered.tota;
       });
-      chart(labels, infectedData, deathsData);
+      setChartData({
+        labels,
+        datasets: [
+          {
+            label: 'Infected',
+            data: infectedData,
+            backgroundColor: ['hsla(250, 10%, 70%, .5'],
+            borderColor: theme.blue,
+          },
+          {
+            label: 'Deaths',
+            data: deathsData,
+            backgroundColor: ['#FD7D7D'],
+            borderColor: theme.red,
+          },
+        ],
+      });
     })();
-  }, []);
+  }, [theme]);
 
   return (
     <div>
